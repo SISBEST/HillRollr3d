@@ -1,21 +1,46 @@
 <!DOCTYPE html>
 <html lang="en-us">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-    <title>Hill Rollr 3D</title>
-    <link rel="stylesheet" href="TemplateData/style.css">
-    <script src="TemplateData/UnityProgress.js"></script>
-    <script src="Build/UnityLoader.js"></script>
-    <script>
-      var unityInstance = UnityLoader.instantiate("unityContainer", "Build/HillRollr3DBuild.json", {onProgress: UnityProgress});
-    </script>
-  </head>
-  <body>
-    <div class="webgl-content">
-      <div id="unityContainer" style="width: 100vw; height: 100vh"></div>
-      <div class="footer">
-      </div>
-    </div>
-  </body>
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>Hill Rollr 3D</title>
+  <link rel="stylesheet" href="TemplateData/style.css">
+  <script src="TemplateData/UnityProgress.js"></script>
+  <script src="Build/UnityLoader.js"></script>
+  <script>
+    var unityInstance = UnityLoader.instantiate("unityContainer", "Build/HillRollr3DBuild.json", { onProgress: UnityProgress });
+  </script>
+</head>
+
+<body>
+  <p onclick="ptl()">Hill Rollr 3D could not capture your cursor.<br />Click here to continue.</p>
+  <div class="webgl-content" style="display: none;">
+    <div id="unityContainer" style="width: 100vw; height: 100vh"></div>
+  </div>
+  <script>
+    function ptl() {
+      const el = document.querySelector('.webgl-content');
+      console.log(el);
+      el.requestPointerLock = el.requestPointerLock = el.requestPointerLock = el.requestPointerLock || el.mozRequestPointerLock;
+      el.requestPointerLock();
+      el.style.display = 'block';
+      document.querySelector('p').style.display = 'none';
+    }
+
+    const evt = () => {
+      if (!document.pointerLockElement) {
+        document.querySelector('.webgl-content').style.display = 'none';
+        document.querySelector('p').style.display = 'block';
+        console.log(document.pointerLockElement);
+      }
+    };
+    if ("onpointerlockchange" in document) {
+      document.addEventListener('pointerlockchange', evt, false);
+    } else if ("onmozpointerlockchange" in document) {
+      document.addEventListener('mozpointerlockchange', evt, false);
+    }
+  </script>
+</body>
+
 </html>
